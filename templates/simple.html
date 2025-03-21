@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <h1>{{ title }} (Version {{ version }})</h1>
+    <ul>
+      {% for task in tasks %}
+      <li>{{ task.operand1 }} {{ task.operator }} {{ task.operand2 }} = ?</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
