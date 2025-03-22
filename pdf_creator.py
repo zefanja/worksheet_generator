@@ -8,11 +8,3 @@ def render_template(template_name, context):
     env = Environment(loader=FileSystemLoader("templates"))
     template = env.get_template(template_name)
     return template.render(context)
-
-# Beispiel-Kontext:
-context = {
-    "title": "Mathematik Arbeitsblatt",
-    "tasks": generate_tasks(zahlenraum=10, operation="+", num_tasks=10),
-    "version": "A"
-}
-html_output = render_template("simple.html", context)

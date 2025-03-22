@@ -1,14 +1,126 @@
-<html>
-  <head>
-    <meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-  </head>
-  <body>
-    <h1>{{ title }} (Version {{ version }})</h1>
-    <ul>
-      {% for task in tasks %}
-      <li>{{ task.operand1 }} {{ task.operator }} {{ task.operand2 }} = ?</li>
-      {% endfor %}
-    </ul>
-  </body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Andika&display=swap');
+        @page {
+            size: A4;
+            margin: 10mm 20mm;
+        }
+        body {
+            font-family: 'Andika', Arial, sans-serif;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 15mm;
+        }
+        .container {
+            margin-top: 15mm;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .name-field {
+            margin-bottom: 20px;
+        }
+        .block {
+            width: 28%;
+            border: 1px solid black;
+            padding: 3px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .task {
+            margin: 10px 0;
+            font-size: 22px;
+/*            font-family: monospace;*/
+            display: flex;
+            justify-content: center;
+        }
+        .task .operand1,
+        .task .operator,
+        .task .operand2,
+        .task .equal,
+        .task .result {
+            display: inline-block;
+            min-width: 30px;
+            text-align: right;
+        }
+
+        .task .equal {
+            text-align: center;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid black;
+            padding: 5px 0;
+        }
+        .footer {
+            text-align: left;
+            font-size: 18px;
+            padding: 5px 0;
+        }
+
+        .page-break {
+            page-break-after: always;
+            clear: both;
+            display: block;
+        }
+
+        .page-number {
+            position: fixed;
+            bottom: 10mm;
+            right: 10mm;
+            font-size: 16px;
+        }
+
+        h5 {
+          font-style: italic;
+          margin-top: -20px;
+        }
+  </style>
+</head>
+<body>
+    <div class="header">{{ school }}</div>
+    <h3>{{ title }}</h3>
+    {% if version %}
+      <h5>Version {{ version }}</h5>
+    {% endif %}
+    <div class="name-field">
+        <label for="name">Name: _____________________</label>
+    </div>
+        {% for page in tasks | batch(45) %}
+        <div class="container">
+            {% for block in page | batch(5) %}
+                <div class="block">
+                    {% for task in block %}
+                        <div class="task">
+                            <span class="operand1">{{ task.operand1 }}</span>
+                            <span class="operator">{{ task.symbol }}</span>
+                            <span class="operand2">{{ task.operand2 }}</span>
+                            <span class="equal">=</span>
+                            <span class="result">___</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        {% if not loop.last %}
+          <div class="page-break"></div>
+        {% endif %}
+        {% endfor %}
+        <div class="footer">
+          Ich habe ___ von {{ tasks|length }} Aufgaben geschafft.
+        </div>
+    </div>
+
+</body>
 </html>
