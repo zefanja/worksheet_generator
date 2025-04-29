@@ -15,7 +15,7 @@ def parse_args():
     parser.add_argument("-op", "--operation", type=str, choices=["+", "-", "x", "/", "+-", "*/", "mixed"], default="mixed",
                         help="Operationen")
     parser.add_argument("-ta", "--tables", type=str, default=[],
-                        help="Set Tables for Mulitplication")
+                        help="Set Tables for Multiplication")
     parser.add_argument("-n", "--num_tasks", type=int, default=10,
                         help="Number of Tasks")
     parser.add_argument("--ab-version", action="store_true",

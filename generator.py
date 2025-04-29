@@ -5,6 +5,10 @@ def generate_task(number_range, operation, tables=[]):
     if operation == "mixed":
         operation = random.choice(["+", "-", "x", "/"])
         operation_symbol = operation
+    elif operation in ["+-","-+"] :
+        operation = random.choice(["+", "-"])
+        operation_symbol = operation
+
     if operation == "+":
         a = random.randint(1, number_range-1)
         b = random.randint(1, number_range-a)
